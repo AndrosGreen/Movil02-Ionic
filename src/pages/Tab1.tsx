@@ -14,11 +14,23 @@ import {
     IonRadioGroup,
     IonListHeader,
     IonRadio,
+    IonTextarea,
 } from "@ionic/react";
+import { useState } from "react";
 import PokeCard from "../components/PokeCard";
 import "./Tab1.css";
 
 const Tab1: React.FC = () => {
+    const [nombre, setNombre] = useState<string>("");
+    const [id, setId] = useState<string>("");
+    const [sexo, setSexo] = useState<string>("");
+    const [tipo, setTipo] = useState<string>("");
+    const [descripcion, setDescripcion] = useState<string>("");
+
+    const agregarPokemon = () => {
+        alert("es : " + sexo);
+    };
+
     return (
         <IonPage>
             <IonHeader>
@@ -33,35 +45,54 @@ const Tab1: React.FC = () => {
                     </IonToolbar>
                 </IonHeader>
                 <IonItem>
-                    <IonInput placeholder="Poke id" type="number"></IonInput>
+                    <IonInput
+                        placeholder="Poke id"
+                        type="number"
+                        value={id}
+                        onIonChange={(e) => setId(e.detail.value!)}
+                    />
                 </IonItem>
                 <IonItem>
-                    <IonInput placeholder="Nombre"></IonInput>
+                    <IonInput
+                        placeholder="Nombre"
+                        value={nombre}
+                        onIonChange={(e) => setNombre(e.detail.value!)}
+                    />
                 </IonItem>
                 <IonItem>
                     <IonLabel>Tipo</IonLabel>
-                    <IonSelect>
-                        <IonSelectOption value="brown">Agua</IonSelectOption>
-                        <IonSelectOption value="blonde">Fuego</IonSelectOption>
-                        <IonSelectOption value="black">Planta</IonSelectOption>
-                        <IonSelectOption value="red">Electrico</IonSelectOption>
+                    <IonSelect onIonChange={(e) => setTipo(e.detail.value!)}>
+                        <IonSelectOption value="Agua">Agua</IonSelectOption>
+                        <IonSelectOption value="Fuego">Fuego</IonSelectOption>
+                        <IonSelectOption value="Planta">Planta</IonSelectOption>
+                        <IonSelectOption value="Electrico">
+                            Electrico
+                        </IonSelectOption>
                     </IonSelect>
                 </IonItem>
-                <IonRadioGroup>
+                <IonRadioGroup onIonChange={(e) => setSexo(e.detail.value!)}>
                     <IonListHeader>
                         <IonLabel>Sexo:</IonLabel>
                     </IonListHeader>
                     <IonItem>
                         <IonLabel>Macho</IonLabel>
-                        <IonRadio slot="start" value="biff" />
+                        <IonRadio slot="start" value="Macho" />
                     </IonItem>
                     <IonItem>
                         <IonLabel>Hembra</IonLabel>
-                        <IonRadio slot="start" value="griff" />
+                        <IonRadio slot="start" value="Hembra" />
                     </IonItem>
                 </IonRadioGroup>
                 <IonItem>
-                    <IonButton size="default">Agregar</IonButton>
+                    <IonLabel position="stacked">Descripcion</IonLabel>
+                    <IonTextarea
+                        onIonChange={(e) => setDescripcion(e.detail.value!)}
+                    />
+                </IonItem>
+                <IonItem>
+                    <IonButton size="default" onClick={agregarPokemon}>
+                        Agregar
+                    </IonButton>
                 </IonItem>
 
                 <IonList>
