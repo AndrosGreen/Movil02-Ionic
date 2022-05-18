@@ -20,16 +20,62 @@ import { useState } from "react";
 import PokeCard from "../components/PokeCard";
 import "./Tab1.css";
 
+
+interface Poke {
+    nombre?: string;
+    id?: string;
+    sexo?: string;
+    tipo?: string;
+    descripcion?: string;
+}
+
+const pokesInicio: Poke[] = [
+    {
+        nombre : "Squirtle",
+        id: "007",
+        sexo: "Macho", 
+        tipo: "Agua", 
+        descripcion: "Keep close to Nature's heart... and break clear away, once in awhile, and climb a mountain or spend a week in the woods. Wash your spirit clean."
+    },
+    {
+        nombre : "Pikachu",
+        id: "025",
+        sexo: "Hembra", 
+        tipo: "Electrico", 
+        descripcion: "Pokemon mas famoso de todos."
+    }
+];
+
 const Tab1: React.FC = () => {
     const [nombre, setNombre] = useState<string>("");
     const [id, setId] = useState<string>("");
     const [sexo, setSexo] = useState<string>("");
     const [tipo, setTipo] = useState<string>("");
     const [descripcion, setDescripcion] = useState<string>("");
+    const [pokemon, setPokemon] = useState<Poke[]>(pokesInicio);
 
     const agregarPokemon = () => {
-        alert("es : " + sexo);
+        const nuevo: Poke = {
+            nombre : nombre,
+            id: id,
+            sexo: sexo,
+            tipo: tipo,
+            descripcion: descripcion
+        }
+        setPokemon([...pokemon, nuevo]);
     };
+    
+    const listaPokes = pokemon.map( poke => {
+        return(
+            <PokeCard 
+                nombre={poke.nombre} 
+                id={poke.id} 
+                tipo={poke.tipo}
+                sexo={poke.sexo}
+                descripcion={poke.descripcion}
+            />
+        );
+    } );
 
     return (
         <IonPage>
@@ -96,9 +142,7 @@ const Tab1: React.FC = () => {
                 </IonItem>
 
                 <IonList>
-                    <PokeCard nombre="Squirtle" id="007" />
-                    <PokeCard nombre="Squirtle" id="008" />
-                    <PokeCard nombre="Squirtle" id="001" />
+                    {listaPokes}
                 </IonList>
             </IonContent>
         </IonPage>
